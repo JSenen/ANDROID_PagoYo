@@ -1,4 +1,4 @@
-package com.juansenen.pagoyo;
+package com.juansenen.pagoyo.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.juansenen.pagoyo.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         return true;
     }
 }
