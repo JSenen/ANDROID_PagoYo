@@ -9,8 +9,7 @@ import lombok.NonNull;
 @Entity(tableName = "award")
 public class Award {
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
     private int idAward;
     @ColumnInfo
     private String datewin;

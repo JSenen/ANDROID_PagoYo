@@ -9,9 +9,8 @@ import lombok.NonNull;
 @Entity(tableName = "customer")
 public class Customer {
 
-    @PrimaryKey
-    @NonNull
-    private int idcustomer;
+    @PrimaryKey(autoGenerate = true)
+    private long idcustomer;
     @ColumnInfo
     private String name;
     @ColumnInfo
@@ -21,17 +20,21 @@ public class Customer {
 
     }
 
-    public Customer(int idcustomer, String name, int coffes) {
+    public Customer(long idcustomer, String name, int coffes) {
         this.idcustomer = idcustomer;
         this.name = name;
         this.coffes = coffes;
     }
+    public Customer(String name, int coffes) {
+        this.name = name;
+        this.coffes = coffes;
+    }
 
-    public int getIdcustomer() {
+    public long getIdcustomer() {
         return idcustomer;
     }
 
-    public void setIdcustomer(int idcustomer) {
+    public void setIdcustomer(long idcustomer) {
         this.idcustomer = idcustomer;
     }
 
