@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         //Construimos el adapter del recyclerview
         adapter = new MainListAdapter(this,customerList);
         recyclerView.setAdapter(adapter);
-        registerForContextMenu(recyclerView);
     }
 
     //Al volver a la Activity principal, recuperamos los datos de la BD

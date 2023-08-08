@@ -54,7 +54,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             parentview = view;
 
             //Recuperamos los elementos del layout
-            txtCustomerName = view.findViewById(R.id.edtxt_customer_name);
+            txtCustomerName = view.findViewById(R.id.txtview_customername);
 
         }
     }
