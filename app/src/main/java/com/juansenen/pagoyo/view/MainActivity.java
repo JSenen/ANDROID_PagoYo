@@ -27,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return true;
+        if (item.getItemId() == R.id.item_add) {
+
+            Intent intent = new Intent(this, AddCustomerActivity.class);
+            finish();
+            startActivity(intent);
+
+            return true;
+        }
+
+        return false;
     }
 }
