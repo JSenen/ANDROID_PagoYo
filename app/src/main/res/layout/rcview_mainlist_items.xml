@@ -33,12 +33,25 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/btn_add_coffe"
-            android:layout_width="49dp"
-            android:layout_height="56dp"
-            android:background="@drawable/btn_add_coffe"
-            android:padding="20dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_add_coffe"
+                android:layout_width="49dp"
+                android:layout_height="56dp"
+                android:background="@drawable/btn_add_coffe"
+                android:padding="20dp" />
+
+            <ImageButton
+                android:id="@+id/btn_delete_customer"
+                android:layout_width="49dp"
+                android:layout_height="56dp"
+                android:background="@drawable/deleteicon"
+                android:padding="20dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 
