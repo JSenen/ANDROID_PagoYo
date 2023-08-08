@@ -2,11 +2,15 @@ package com.juansenen.pagoyo.view;
 
 import static com.juansenen.pagoyo.db.Constans.DATABASE_NAME;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,10 +46,26 @@ public class AddCustomerActivity extends AppCompatActivity {
         Log.i("INFO--> ","Añadido a DB");
         //Notificacion emergente
         Toast.makeText(this, "Nuevo registro añadido", Toast.LENGTH_LONG).show();
+    }
 
+    //Opciones de menu en la action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu_back,menu);
+        return true;
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_item_back) {
 
+            Intent intent = new Intent(this, MainActivity.class);
+            finish();
+            startActivity(intent);
 
+            return true;
+        }
 
+        return false;
     }
 }
