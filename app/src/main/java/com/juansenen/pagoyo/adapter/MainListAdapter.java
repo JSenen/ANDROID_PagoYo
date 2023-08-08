@@ -1,15 +1,22 @@
 package com.juansenen.pagoyo.adapter;
 
+import static com.juansenen.pagoyo.db.Constans.DATABASE_NAME;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.juansenen.pagoyo.R;
+import com.juansenen.pagoyo.db.AppDataBase;
 import com.juansenen.pagoyo.domain.Customer;
 
 import java.util.List;
@@ -47,15 +54,42 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
     public class MainListHolder extends RecyclerView.ViewHolder{
 
         public TextView txtCustomerName;
+        public ImageButton btnDeleteCustomer;
         public View parentview;
 
         public MainListHolder(View view){
             super(view);
+
             parentview = view;
 
             //Recuperamos los elementos del layout
             txtCustomerName = view.findViewById(R.id.txtview_customername);
 
+            btnDeleteCustomer = view.findViewById(R.id.btn_delete_customer);
+            btnDeleteCustomer.setOnClickListener(view1 -> deleteCustomer(getAdapterPosition()));
+
+        }
+
+        public void deleteCustomer(int position){
+
+            //Creamos dialogo de alerta con opciones
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Desea boorar el cliente?")
+                    .setTitle("Eliminar cliente")
+                    .setPositiveButton("Si", (dialog, id) -> {
+                        //Al pulsar en OK eliminamos cliente de la base de datos
+                        final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
+                                .allowMainThreadQueries().build();
+                        Customer customer = customerList.get(position);
+                        db.customerDAO().delete(customer);
+
+                        customerList.remove(position);
+                        //Notificamos el cambio
+                        notifyItemRemoved(position);
+                    })
+                    .setNegativeButton(("No"), (dialog, id) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 

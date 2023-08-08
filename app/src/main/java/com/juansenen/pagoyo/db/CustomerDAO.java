@@ -1,6 +1,7 @@
 package com.juansenen.pagoyo.db;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -16,6 +17,8 @@ public interface CustomerDAO {
 
     @Insert
     void insert(Customer customer);
+    @Delete
+    void delete(Customer customer);
 
 
 }
