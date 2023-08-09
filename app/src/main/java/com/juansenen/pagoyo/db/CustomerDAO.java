@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.juansenen.pagoyo.domain.Customer;
 
@@ -19,6 +20,9 @@ public interface CustomerDAO {
     void insert(Customer customer);
     @Delete
     void delete(Customer customer);
+
+    @Query("UPDATE customer SET coffes=:coffe WHERE idcustomer = :id")
+    void updateCoffeCustomer(int coffe, long id);
 
 
 }

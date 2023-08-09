@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -42,6 +43,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
     @Override
     public void onBindViewHolder(MainListHolder holder, int position) {
         holder.txtCustomerName.setText(customerList.get(position).getName());
+        holder.txtCustomerCoffes.setText(String.valueOf(customerList.get(position).getCoffes()));
 
     }
 
@@ -53,8 +55,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public class MainListHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtCustomerName;
-        public ImageButton btnDeleteCustomer;
+        public TextView txtCustomerName, txtCustomerCoffes;
+        public ImageButton btnDeleteCustomer, btnAddCoffe;
         public View parentview;
 
         public MainListHolder(View view){
@@ -64,9 +66,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
             //Recuperamos los elementos del layout
             txtCustomerName = view.findViewById(R.id.txtview_customername);
+            txtCustomerCoffes = view.findViewById(R.id.txtview_coffes_customer);
 
             btnDeleteCustomer = view.findViewById(R.id.btn_delete_customer);
             btnDeleteCustomer.setOnClickListener(view1 -> deleteCustomer(getAdapterPosition()));
+
+            btnAddCoffe = view.findViewById(R.id.btn_add_coffe);
+            btnAddCoffe.setOnClickListener((view2 -> addCoffeCustomer(getAdapterPosition())));
 
         }
 
@@ -91,6 +97,28 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+    }
+
+    private void addCoffeCustomer(int position) {
+        //Buscamos el cliente y añadimos 1 al cafe
+        long id = customerList.get(position).getIdcustomer();
+        int coffes = customerList.get(position).getCoffes();
+        coffes = coffes +1;
+
+        //Actualizamos la DB
+        final AppDataBase db = Room.databaseBuilder(context,AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        db.customerDAO().updateCoffeCustomer(coffes, id);
+
+        // Actualizamos los datos en la lista local
+        customerList.get(position).setCoffes(coffes);
+
+        //Notificamos el cambio
+        notifyItemChanged(position);
+
+        Toast.makeText(context,"Cafe añadido",Toast.LENGTH_SHORT).show();
+
+
     }
 
 
