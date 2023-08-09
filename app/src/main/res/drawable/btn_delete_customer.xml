@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <bitmap android:src="@drawable/deleteicon"></bitmap>
+    <item android:state_pressed="false">
+        <bitmap android:src="@drawable/borrar"></bitmap>
+    </item>
+    <item android:state_pressed="true">
+        <bitmap android:src="@drawable/borrar2"></bitmap>
     </item>
 </selector>
