@@ -104,6 +104,9 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         long id = customerList.get(position).getIdcustomer();
         int coffes = customerList.get(position).getCoffes();
         coffes = coffes +1;
+        if (coffes == 6 ){
+            customerWinCoffe();
+        }
 
         //Actualizamos la DB
         final AppDataBase db = Room.databaseBuilder(context,AppDataBase.class, DATABASE_NAME)
@@ -119,6 +122,10 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         Toast.makeText(context,"Cafe añadido",Toast.LENGTH_SHORT).show();
 
 
+    }
+    private void customerWinCoffe(){
+        //TODO Fix and save free coffe to data base
+        Toast.makeText(context,"PRUEBA GANA UN CAFE",Toast.LENGTH_LONG).show();
     }
 
 
