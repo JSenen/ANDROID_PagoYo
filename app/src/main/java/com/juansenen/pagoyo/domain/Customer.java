@@ -15,12 +15,14 @@ public class Customer {
     private String name;
     @ColumnInfo
     private int coffes;
+    @ColumnInfo
+    private boolean award = false;
 
     public Customer(){
 
     }
 
-    public Customer(long idcustomer, String name, int coffes) {
+    public Customer(long idcustomer, String name, int coffes, boolean award) {
         this.idcustomer = idcustomer;
         this.name = name;
         this.coffes = coffes;
@@ -52,5 +54,13 @@ public class Customer {
 
     public void setCoffes(int coffes) {
         this.coffes = coffes;
+    }
+
+    public boolean isAward() {
+        return award;
+    }
+
+    public void setAward(boolean award) {
+        this.award = award;
     }
 }

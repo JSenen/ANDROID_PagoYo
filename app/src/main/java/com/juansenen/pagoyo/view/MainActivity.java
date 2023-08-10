@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
+
         final AppDataBase db = Room.databaseBuilder(this,AppDataBase.class,DATABASE_NAME)
                 .allowMainThreadQueries().build();
 
