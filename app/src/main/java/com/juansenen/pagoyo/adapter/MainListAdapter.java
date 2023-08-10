@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
         public TextView txtCustomerName, txtCustomerCoffes;
         public ImageButton btnDeleteCustomer, btnAddCoffe;
+        public ImageView imgAward;
         public View parentview;
 
         public MainListHolder(View view){
@@ -73,6 +75,9 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
             btnAddCoffe = view.findViewById(R.id.btn_add_coffe);
             btnAddCoffe.setOnClickListener((view2 -> addCoffeCustomer(getAdapterPosition())));
+
+            imgAward = view.findViewById(R.id.imgview_award);
+
 
         }
 
@@ -97,35 +102,38 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             AlertDialog dialog = builder.create();
             dialog.show();
         }
-    }
+        private void addCoffeCustomer(int position) {
+            //Buscamos el cliente y añadimos 1 al cafe
+            long id = customerList.get(position).getIdcustomer();
+            int coffes = customerList.get(position).getCoffes();
+            coffes = coffes +1;
+            if (coffes == 6 ){
+                customerWinCoffe(position);
 
-    private void addCoffeCustomer(int position) {
-        //Buscamos el cliente y añadimos 1 al cafe
-        long id = customerList.get(position).getIdcustomer();
-        int coffes = customerList.get(position).getCoffes();
-        coffes = coffes +1;
-        if (coffes == 6 ){
-            customerWinCoffe();
+            }
+
+            //Actualizamos la DB
+            final AppDataBase db = Room.databaseBuilder(context,AppDataBase.class, DATABASE_NAME)
+                    .allowMainThreadQueries().build();
+            db.customerDAO().updateCoffeCustomer(coffes, id);
+
+            // Actualizamos los datos en la lista local
+            customerList.get(position).setCoffes(coffes);
+
+            //Notificamos el cambio
+            notifyItemChanged(position);
+
+            Toast.makeText(context,"Cafe añadido",Toast.LENGTH_SHORT).show();
+
+
         }
-
-        //Actualizamos la DB
-        final AppDataBase db = Room.databaseBuilder(context,AppDataBase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        db.customerDAO().updateCoffeCustomer(coffes, id);
-
-        // Actualizamos los datos en la lista local
-        customerList.get(position).setCoffes(coffes);
-
-        //Notificamos el cambio
-        notifyItemChanged(position);
-
-        Toast.makeText(context,"Cafe añadido",Toast.LENGTH_SHORT).show();
-
-
     }
-    private void customerWinCoffe(){
+
+
+    private void customerWinCoffe(int position){
         //TODO Fix and save free coffe to data base
-        Toast.makeText(context,"PRUEBA GANA UN CAFE",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"CAFÉ PREMIADO",Toast.LENGTH_LONG).show();
+        customerList.get(position).setAward(true);
     }
 
 
