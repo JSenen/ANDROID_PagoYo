@@ -17,6 +17,8 @@ public class Customer {
     private int coffes;
     @ColumnInfo
     private boolean award = false;
+    @ColumnInfo
+    private int numbercoffes;
 
     public Customer(){
 
@@ -62,5 +64,13 @@ public class Customer {
 
     public void setAward(boolean award) {
         this.award = award;
+    }
+
+    public int getNumbercoffes() {
+        return numbercoffes;
+    }
+
+    public void setNumbercoffes(int numbercoffes) {
+        this.numbercoffes = numbercoffes;
     }
 }

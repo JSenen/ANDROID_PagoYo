@@ -13,23 +13,23 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.juansenen.pagoyo.domain.Award;
 import com.juansenen.pagoyo.domain.Customer;
 
-@Database(entities = {Customer.class, Award.class}, version = 2)
+@Database(entities = {Customer.class, Award.class}, version = 3)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract CustomerDAO customerDAO();
     public abstract AwardDAO awardDAO();
 
     // Aqui definimos las migraciones entre Bases de Datos
-    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            // Implementa la lógica de migración aquí
+            database.execSQL("ALTER TABLE customer ADD COLUMN numbercoffes INTEGER");
         }
     };
 
     // Método para obtener una instancia de la base de datos
     public static AppDataBase getInstance(Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, DATABASE_NAME)
-                .addMigrations(MIGRATION_1_2) // Agrega la migración aquí
+                .addMigrations(MIGRATION_2_3) // Agrega la migración aquí
                 .build();
     }
 
