@@ -37,9 +37,11 @@ public class AddCustomerActivity extends AppCompatActivity {
                 .allowMainThreadQueries().build();
         //Recuperar elementos del layout
         EditText edtxCustomer = findViewById(R.id.edtxt_customer_name);
+        EditText edtxConsumiciones = findViewById(R.id.edtxt_customer_consumiciones);
         //Recuperamos datos
         String newCustomer = edtxCustomer.getText().toString();
         newCustomer = newCustomer.toUpperCase();
+        int customerConsumiciones = Integer.parseInt(edtxConsumiciones.getText().toString());
         //Crear el objeto
         Customer customer = new Customer(newCustomer, 0);
         //Insertar en BD

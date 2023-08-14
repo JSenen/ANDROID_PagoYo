@@ -24,10 +24,11 @@ public class Customer {
 
     }
 
-    public Customer(long idcustomer, String name, int coffes, boolean award) {
+    public Customer(long idcustomer, String name, int coffes, boolean award, int consumiciones) {
         this.idcustomer = idcustomer;
         this.name = name;
         this.coffes = coffes;
+        this.numbercoffes = consumiciones;
     }
     public Customer(String name, int coffes) {
         this.name = name;
