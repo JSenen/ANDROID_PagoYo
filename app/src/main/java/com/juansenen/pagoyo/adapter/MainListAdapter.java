@@ -46,7 +46,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         holder.txtCustomerName.setText(customerList.get(position).getName());
         holder.txtCustomerCoffes.setText(String.valueOf(customerList.get(position).getCoffes()));
         // Comprobamos el número de cafés y configuramos la visibilidad de la imagen premiada
-        if (customerList.get(position).getCoffes() >= 6) {
+        if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
         } else {
             holder.imgAward.setVisibility(View.INVISIBLE); // O View.GONE según sea necesario

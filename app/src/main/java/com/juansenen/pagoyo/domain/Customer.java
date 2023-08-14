@@ -30,9 +30,10 @@ public class Customer {
         this.coffes = coffes;
         this.numbercoffes = consumiciones;
     }
-    public Customer(String name, int coffes) {
+    public Customer(String name, int coffes, int ingestions) {
         this.name = name;
         this.coffes = coffes;
+        this.numbercoffes = ingestions;
     }
 
     public long getIdcustomer() {

@@ -43,7 +43,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         newCustomer = newCustomer.toUpperCase();
         int customerConsumiciones = Integer.parseInt(edtxConsumiciones.getText().toString());
         //Crear el objeto
-        Customer customer = new Customer(newCustomer, 0);
+        Customer customer = new Customer(newCustomer, 0, customerConsumiciones);
         //Insertar en BD
         db.customerDAO().insert(customer);
         Log.i("INFO--> ","Añadido a DB");
