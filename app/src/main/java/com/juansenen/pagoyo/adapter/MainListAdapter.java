@@ -122,8 +122,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             // Actualizamos los datos en la lista local
             customerList.get(position).setCoffes(coffes);
 
-            customerWinCoffe(position, imgAward);
-
             //Notificamos el cambio
             notifyItemChanged(position);
 
@@ -132,16 +130,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         }
     }
 
-
-    private void customerWinCoffe(int position, ImageView imgAward){
-        if (customerList.get(position).getCoffes() >= 6 ) {
-            Toast.makeText(context, "CAFÉ PREMIADO", Toast.LENGTH_LONG).show();
-            customerList.get(position).setAward(true);
-            imgAward.setVisibility(View.VISIBLE);
-        } else {
-            imgAward.setVisibility(View.INVISIBLE); // O View.GONE según sea necesario
-        }
-    }
 
 
 }
