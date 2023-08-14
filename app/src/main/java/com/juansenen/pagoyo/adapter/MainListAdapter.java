@@ -112,7 +112,18 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             //Buscamos el cliente y añadimos 1 al cafe
             long id = customerList.get(position).getIdcustomer();
             int coffes = customerList.get(position).getCoffes();
-            coffes = coffes +1;
+            int ingestions = customerList.get(position).getNumbercoffes();
+
+            if (coffes < ingestions){
+                coffes = coffes +1;
+            }else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("ENTREGAR PREMIO");
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                coffes = 0;
+            }
+
 
             //Actualizamos la DB
             final AppDataBase db = Room.databaseBuilder(context,AppDataBase.class, DATABASE_NAME)
