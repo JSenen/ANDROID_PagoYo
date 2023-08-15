@@ -4,6 +4,7 @@ import static com.juansenen.pagoyo.db.Constans.DATABASE_NAME;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.room.Room;
 
 import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.db.AppDataBase;
+import com.juansenen.pagoyo.domain.CoffesContainer;
 import com.juansenen.pagoyo.domain.Customer;
 
 import java.util.List;
@@ -117,14 +119,35 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             if (coffes < ingestions){
                 coffes = coffes +1;
             }else {
+                CoffesContainer coffesContainer = new CoffesContainer(coffes);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("ENTREGAR PREMIO");
-                AlertDialog dialog = builder.create();
+                builder.setMessage("ENTREGAR PREMIO")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        coffesContainer.value = 0;
+                                        updateDB(coffesContainer.value, id, position);
+                                    }
+                                })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                                AlertDialog dialog = builder.create();
                 dialog.show();
-                coffes = 0;
+
             }
 
+            updateDB(coffes, id, position);
 
+
+            Toast.makeText(context,"Cafe añadido",Toast.LENGTH_SHORT).show();
+
+        }
+
+        private void updateDB(int coffes, long id, int position){
             //Actualizamos la DB
             final AppDataBase db = Room.databaseBuilder(context,AppDataBase.class, DATABASE_NAME)
                     .allowMainThreadQueries().build();
@@ -135,8 +158,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
             //Notificamos el cambio
             notifyItemChanged(position);
-
-            Toast.makeText(context,"Cafe añadido",Toast.LENGTH_SHORT).show();
 
         }
     }
