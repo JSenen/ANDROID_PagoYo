@@ -20,6 +20,7 @@ import androidx.room.Room;
 
 import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.db.AppDataBase;
+import com.juansenen.pagoyo.domain.Award;
 import com.juansenen.pagoyo.domain.CoffesContainer;
 import com.juansenen.pagoyo.domain.Customer;
 
@@ -50,6 +51,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         // Comprobamos el número de cafés y configuramos la visibilidad de la imagen premiada
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
+
         } else {
             holder.imgAward.setVisibility(View.INVISIBLE); // O View.GONE según sea necesario
         }
@@ -159,6 +161,14 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             //Notificamos el cambio
             notifyItemChanged(position);
 
+        }
+
+        //TODO update DB AWARDS
+        private void updateAwardDB(Award award){
+            //Actulizamos DB de premios
+            final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)
+                    .allowMainThreadQueries().build();
+            db.awardDAO().insert(award);
         }
     }
 
