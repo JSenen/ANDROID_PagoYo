@@ -7,13 +7,17 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.juansenen.pagoyo.domain.Award;
+import com.juansenen.pagoyo.domain.Converters;
 import com.juansenen.pagoyo.domain.Customer;
 
 @Database(entities = {Customer.class, Award.class}, version = 3)
+@TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
     public abstract CustomerDAO customerDAO();
     public abstract AwardDAO awardDAO();

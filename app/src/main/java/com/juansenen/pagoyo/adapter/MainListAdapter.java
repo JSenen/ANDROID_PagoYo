@@ -5,6 +5,7 @@ import static com.juansenen.pagoyo.db.Constans.DATABASE_NAME;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.icu.util.ULocale;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.juansenen.pagoyo.domain.Award;
 import com.juansenen.pagoyo.domain.CoffesContainer;
 import com.juansenen.pagoyo.domain.Customer;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainListHolder> {
@@ -120,6 +123,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
             if (coffes < ingestions){
                 coffes = coffes +1;
+                if (coffes == ingestions){
+                    Award award = new Award();
+                    LocalDate currentDate = LocalDate.now();
+                    award.setDatewin(currentDate);
+                    award.setIdAwardCustomer(id);
+                    updateAwardDB(award);
+                }
             }else {
                 CoffesContainer coffesContainer = new CoffesContainer(coffes);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
