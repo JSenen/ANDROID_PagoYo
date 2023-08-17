@@ -68,7 +68,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public class MainListHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtCustomerName, txtCustomerCoffes;
+        public TextView txtCustomerName, txtCustomerCoffes, txtDateWin;
         public ImageButton btnDeleteCustomer, btnAddCoffe;
         public ImageView imgAward;
         public View parentview;
@@ -81,7 +81,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             //Recuperamos los elementos del layout
             txtCustomerName = view.findViewById(R.id.txtview_customername);
             txtCustomerCoffes = view.findViewById(R.id.txtview_coffes_customer);
-
+            txtDateWin = view.findViewById((R.id.txtview_datewin));
 
             btnDeleteCustomer = view.findViewById(R.id.btn_delete_customer);
             btnDeleteCustomer.setOnClickListener(view1 -> deleteCustomer(getAdapterPosition()));
