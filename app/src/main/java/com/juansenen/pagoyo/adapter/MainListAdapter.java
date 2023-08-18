@@ -153,6 +153,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                                     public void onClick(DialogInterface dialog, int which) {
                                         coffesContainer.value = 0;
                                         updateDB(coffesContainer.value, id, position);
+                                        deleteAward(id);
                                     }
                                 })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -202,10 +203,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
                 .allowMainThreadQueries().build();
         long dat = db.awardDAO().searchDate(idcustomer);
-        //Eliminamos el premio
-        db.awardDAO().deleteByPosition(idcustomer);
-
         return dat;
+    }
+    private void deleteAward(long idcustomer){
+        //Eliminamos el premio
+        final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        db.awardDAO().deleteByPosition(idcustomer);
     }
 
 
