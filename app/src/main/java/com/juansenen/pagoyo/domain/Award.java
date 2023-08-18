@@ -4,47 +4,51 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import lombok.NonNull;
 
 @Entity(tableName = "award")
 public class Award {
 
     @PrimaryKey(autoGenerate = true)
-    private int idAward;
+    private long idAward;
     @ColumnInfo
-    private String datewin;
+    private LocalDate datewin;
+
     @ColumnInfo
-    private int idAwardCustomer;
+    private long idAwardCustomer;
 
     public Award(){}
 
-    public Award(int idAward, String datewin, int idAwardCustomer) {
+    public Award(long idAward, LocalDate datewin, long idAwardCustomer) {
         this.idAward = idAward;
         this.datewin = datewin;
         this.idAwardCustomer = idAwardCustomer;
     }
 
-    public int getIdAward() {
+    public long getIdAward() {
         return idAward;
     }
 
-    public void setIdAward(int idAward) {
+    public void setIdAward(long idAward) {
         this.idAward = idAward;
     }
 
-    public String getDatewin() {
+    public LocalDate getDatewin() {
         return datewin;
     }
 
-    public void setDatewin(String datewin) {
+    public void setDatewin(LocalDate datewin) {
         this.datewin = datewin;
     }
 
-    public int getIdAwardCustomer() {
+    public long getIdAwardCustomer() {
         return idAwardCustomer;
     }
 
-    public void setIdAwardCustomer(int idAwardCustomer) {
+    public void setIdAwardCustomer(long idAwardCustomer) {
         this.idAwardCustomer = idAwardCustomer;
     }
 }

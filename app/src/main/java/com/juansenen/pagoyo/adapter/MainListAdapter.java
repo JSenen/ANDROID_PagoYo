@@ -5,6 +5,7 @@ import static com.juansenen.pagoyo.db.Constans.DATABASE_NAME;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.icu.util.ULocale;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +23,18 @@ import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.db.AppDataBase;
 import com.juansenen.pagoyo.domain.Award;
 import com.juansenen.pagoyo.domain.CoffesContainer;
+import com.juansenen.pagoyo.domain.Converters;
 import com.juansenen.pagoyo.domain.Customer;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainListHolder> {
 
     private List<Customer> customerList;
+    private List<Award> awardList;
     private Context context;
 
     public MainListAdapter (Context context, List<Customer> customerList){
@@ -51,9 +57,22 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         // Comprobamos el número de cafés y configuramos la visibilidad de la imagen premiada
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
+            holder.txtDateWin.setVisibility(View.VISIBLE);
+            long id = customerList.get(position).getIdcustomer();
+            long dat = seeDateWin(id);
+
+            // Convertir el valor long a LocalDate utilizando el converter
+            LocalDate localDate = Converters.fromTimestamp(dat);
+
+
+            // Formatear la fecha legible y establecerla en el TextView
+            String formattedDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            holder.txtDateWin.setText(formattedDate);
+
 
         } else {
-            holder.imgAward.setVisibility(View.INVISIBLE); // O View.GONE según sea necesario
+            holder.imgAward.setVisibility(View.INVISIBLE);
+            holder.txtDateWin.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -65,7 +84,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public class MainListHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtCustomerName, txtCustomerCoffes;
+        public TextView txtCustomerName, txtCustomerCoffes, txtDateWin;
         public ImageButton btnDeleteCustomer, btnAddCoffe;
         public ImageView imgAward;
         public View parentview;
@@ -78,7 +97,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             //Recuperamos los elementos del layout
             txtCustomerName = view.findViewById(R.id.txtview_customername);
             txtCustomerCoffes = view.findViewById(R.id.txtview_coffes_customer);
-
+            txtDateWin = view.findViewById((R.id.txtview_datewin));
 
             btnDeleteCustomer = view.findViewById(R.id.btn_delete_customer);
             btnDeleteCustomer.setOnClickListener(view1 -> deleteCustomer(getAdapterPosition()));
@@ -120,6 +139,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
             if (coffes < ingestions){
                 coffes = coffes +1;
+                if (coffes == ingestions){
+                    Award award = new Award();
+                    LocalDate currentDate = LocalDate.now();
+                    award.setDatewin(currentDate);
+                    award.setIdAwardCustomer(id);
+                    updateAwardDB(award);
+                }
             }else {
                 CoffesContainer coffesContainer = new CoffesContainer(coffes);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -129,6 +155,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                                     public void onClick(DialogInterface dialog, int which) {
                                         coffesContainer.value = 0;
                                         updateDB(coffesContainer.value, id, position);
+                                        deleteAward(id);
                                     }
                                 })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -170,6 +197,21 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                     .allowMainThreadQueries().build();
             db.awardDAO().insert(award);
         }
+
+
+    }
+    public long seeDateWin(long idcustomer){
+        //Buscamos en la base de datos
+        final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        long dat = db.awardDAO().searchDate(idcustomer);
+        return dat;
+    }
+    private void deleteAward(long idcustomer){
+        //Eliminamos el premio
+        final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        db.awardDAO().deleteByPosition(idcustomer);
     }
 
 
