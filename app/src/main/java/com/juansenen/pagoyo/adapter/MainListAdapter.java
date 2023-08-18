@@ -57,6 +57,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         // Comprobamos el número de cafés y configuramos la visibilidad de la imagen premiada
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
+            holder.txtDateWin.setVisibility(View.VISIBLE);
             long id = customerList.get(position).getIdcustomer();
             long dat = seeDateWin(id);
 
@@ -70,7 +71,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
 
         } else {
-            holder.imgAward.setVisibility(View.INVISIBLE); // O View.GONE según sea necesario
+            holder.imgAward.setVisibility(View.INVISIBLE);
+            holder.txtDateWin.setVisibility(View.INVISIBLE);
         }
     }
 
