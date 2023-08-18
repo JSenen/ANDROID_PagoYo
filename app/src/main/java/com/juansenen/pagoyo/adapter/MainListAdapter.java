@@ -23,15 +23,18 @@ import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.db.AppDataBase;
 import com.juansenen.pagoyo.domain.Award;
 import com.juansenen.pagoyo.domain.CoffesContainer;
+import com.juansenen.pagoyo.domain.Converters;
 import com.juansenen.pagoyo.domain.Customer;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainListHolder> {
 
     private List<Customer> customerList;
+    private List<Award> awardList;
     private Context context;
 
     public MainListAdapter (Context context, List<Customer> customerList){
@@ -54,6 +57,17 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         // Comprobamos el número de cafés y configuramos la visibilidad de la imagen premiada
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
+            long id = customerList.get(position).getIdcustomer();
+            long dat = seeDateWin(id);
+
+            // Convertir el valor long a LocalDate utilizando el converter
+            LocalDate localDate = Converters.fromTimestamp(dat);
+
+
+            // Formatear la fecha legible y establecerla en el TextView
+            String formattedDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            holder.txtDateWin.setText(formattedDate);
+
 
         } else {
             holder.imgAward.setVisibility(View.INVISIBLE); // O View.GONE según sea necesario
@@ -180,6 +194,18 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                     .allowMainThreadQueries().build();
             db.awardDAO().insert(award);
         }
+
+
+    }
+    public long seeDateWin(long idcustomer){
+        //Buscamos en la base de datos
+        final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        long dat = db.awardDAO().searchDate(idcustomer);
+        //Eliminamos el premio
+        db.awardDAO().deleteByPosition(idcustomer);
+
+        return dat;
     }
 
 
