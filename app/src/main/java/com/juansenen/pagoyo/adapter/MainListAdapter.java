@@ -59,6 +59,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
             holder.txtDateWin.setVisibility(View.VISIBLE);
+            holder.txtDateWin.setVisibility(View.VISIBLE);
             long id = customerList.get(position).getIdcustomer();
             long dat = seeDateWin(id);
 
@@ -82,15 +83,16 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             if (daysDifference > 10 ) {
                 holder.imgAward.setVisibility(View.INVISIBLE);
                 holder.txtDateWin.setVisibility(View.INVISIBLE);
+                holder.txtDateEnd.setVisibility(View.INVISIBLE);
                 //Borramos el premio
                 customerList.get(position).setCoffes(0);
-
-                deleteAward(id);
+                deleteAward(id, position);
             }
 
         } else {
             holder.imgAward.setVisibility(View.INVISIBLE);
             holder.txtDateWin.setVisibility(View.INVISIBLE);
+            holder.txtDateEnd.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -174,7 +176,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                                     public void onClick(DialogInterface dialog, int which) {
                                         coffesContainer.value = 0;
                                         updateDB(coffesContainer.value, id, position);
-                                        deleteAward(id);
+                                        deleteAward(id, position);
                                     }
                                 })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -226,11 +228,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         long dat = db.awardDAO().searchDate(idcustomer);
         return dat;
     }
-    private void deleteAward(long idcustomer){
+    private void deleteAward(long idcustomer, int position){
         //Eliminamos el premio
         final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
                 .allowMainThreadQueries().build();
         db.awardDAO().deleteByPosition(idcustomer);
+        customerList.get(position).setCoffes(0);
+        notifyItemChanged(position);
     }
 
 
