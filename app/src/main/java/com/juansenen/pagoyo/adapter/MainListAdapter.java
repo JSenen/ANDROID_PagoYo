@@ -65,6 +65,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
     public void onBindViewHolder(MainListHolder holder, int position) {
         holder.txtCustomerName.setText(customerList.get(position).getName());
         holder.txtCustomerCoffes.setText(String.valueOf(customerList.get(position).getCoffes()));
+        holder.txtCustomerSandwiches.setText(String.valueOf(customerList.get(position).getSandwiches()));
+
         // Comprobamos el número de cafés y configuramos la visibilidad de la imagen premiada
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
@@ -114,7 +116,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public class MainListHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtCustomerName, txtCustomerCoffes, txtDateWin, txtDateEnd;
+        public TextView txtCustomerName, txtCustomerCoffes, txtCustomerSandwiches, txtDateWin, txtDateEnd;
         public ImageButton btnDeleteCustomer, btnAddCoffe;
         public ImageView imgAward;
         public View parentview;
@@ -129,6 +131,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             txtCustomerCoffes = view.findViewById(R.id.txtview_coffes_customer);
             txtDateWin = view.findViewById((R.id.txtview_datewin));
             txtDateEnd = view.findViewById(R.id.txtview_dateend);
+            txtCustomerSandwiches = view.findViewById(R.id.txtview_sandwiches_customer);
 
             btnDeleteCustomer = view.findViewById(R.id.btn_delete_customer);
             btnDeleteCustomer.setOnClickListener(view1 -> deleteCustomer(getAdapterPosition()));
