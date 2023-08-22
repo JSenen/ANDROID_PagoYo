@@ -43,6 +43,16 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         this.customerList = customerList;
     }
 
+    // Otros campos del adaptador
+
+    private AdapterListener adapterListener;
+
+    public MainListAdapter(Context context, List<Customer> customerList, AdapterListener listener) {
+        // Inicializa los campos del adaptador
+
+        this.adapterListener = listener;
+    }
+
     //Creamos ViewHolder e inicializamos campos del RecyclerView
     @Override
     public MainListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -233,9 +243,16 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                 .allowMainThreadQueries().build();
         db.awardDAO().deleteByPosition(idcustomer);
 
+        // Llamar al método en el AdapterListener de la MainActivity
+        if (adapterListener != null) {
+            adapterListener.onDeleteAndOtherOperations(idcustomer, position);
+        }
+
 
     }
 
-
+    public interface AdapterListener {
+        void onDeleteAndOtherOperations(long id, int position);
+    }
 
 }

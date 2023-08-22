@@ -21,7 +21,7 @@ import com.juansenen.pagoyo.domain.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainListAdapter.AdapterListener {
 
     public List<Customer> customerList;
     public MainListAdapter adapter;
@@ -95,4 +95,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onDeleteAndOtherOperations(long id, int position) {
+        performDeleteAndOtherOperations(id, position);
+    }
 }
