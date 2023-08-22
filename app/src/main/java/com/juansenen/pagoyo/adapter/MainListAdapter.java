@@ -211,7 +211,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
         }
 
-        //TODO update DB AWARDS
         private void updateAwardDB(Award award){
             //Actulizamos DB de premios
             final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)

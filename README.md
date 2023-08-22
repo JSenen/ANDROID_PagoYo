@@ -7,3 +7,4 @@ Atribuciones:
 <a href="https://www.flaticon.es/iconos-gratis/cafe" title="café iconos">Café iconos creados por Paul Kovaloff - Flaticon</a>
 <a href="https://www.flaticon.es/iconos-gratis/plato" title="plato iconos">Plato iconos creados por Freepik - Flaticon</a>
 <a href="http://www.freepik.com">Designed by studiogstock / Freepik</a>
+<a href="https://www.flaticon.es/iconos-gratis/un-pan" title="un pan iconos">Un pan iconos creados por Freepik - Flaticon</a>

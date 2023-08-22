@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.deleteAward(id,position);
 
         // Realizar otras operaciones o cambios en los datos
+        customerList.get(position).setCoffes(0);
 
         // Notificar al adaptador de los cambios
         adapter.notifyDataSetChanged();
