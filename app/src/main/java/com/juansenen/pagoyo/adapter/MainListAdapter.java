@@ -117,7 +117,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
     public class MainListHolder extends RecyclerView.ViewHolder{
 
         public TextView txtCustomerName, txtCustomerCoffes, txtCustomerSandwiches, txtDateWin, txtDateEnd;
-        public ImageButton btnDeleteCustomer, btnAddCoffe;
+        public ImageButton btnDeleteCustomer, btnAddCoffe, btnAddSandwich;
         public ImageView imgAward;
         public View parentview;
 
@@ -139,8 +139,23 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             btnAddCoffe = view.findViewById(R.id.btn_add_coffe);
             btnAddCoffe.setOnClickListener((view2 -> addCoffeCustomer(getAdapterPosition())));
 
+            btnAddSandwich = view.findViewById(R.id.btn_add_sandwich);
+            btnAddSandwich.setOnClickListener((view3 -> addSandwinchCustomer(getAdapterPosition())));
+
             imgAward = view.findViewById(R.id.imgview_award);
 
+
+        }
+
+        private void addSandwinchCustomer(int position) {
+
+            //Buscamos el cliente y añadimos 1 a los almuerzos
+            long id = customerList.get(position).getIdcustomer();
+            int sandwiches = customerList.get(position).getSandwiches();
+            int ingestionSandwich = customerList.get(position).getConsusandwiches();
+
+            //TODO finish add sandwich
+            sandwiches = sandwiches + 1;
 
         }
 
