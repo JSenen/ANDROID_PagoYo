@@ -83,4 +83,15 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
+
+    private void performDeleteAndOtherOperations(long id, int position) {
+        // Llamar a deleteAward en el adaptador
+        adapter.deleteAward(id,position);
+
+        // Realizar otras operaciones o cambios en los datos
+
+        // Notificar al adaptador de los cambios
+        adapter.notifyDataSetChanged();
+    }
+
 }

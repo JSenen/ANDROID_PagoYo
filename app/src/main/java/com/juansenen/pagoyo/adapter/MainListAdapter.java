@@ -228,13 +228,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         long dat = db.awardDAO().searchDate(idcustomer);
         return dat;
     }
-    private void deleteAward(long idcustomer, int position){
+    public void deleteAward(long idcustomer, int position){
         //Eliminamos el premio
         final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
                 .allowMainThreadQueries().build();
         db.awardDAO().deleteByPosition(idcustomer);
-        customerList.get(position).setCoffes(0);
-        notifyItemChanged(position);
+
+
     }
 
 
