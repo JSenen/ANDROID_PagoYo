@@ -59,11 +59,18 @@
 
             <TextView
                 android:id="@+id/txtview_coffes_customer"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
                 android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btn_add_coffe"
+                android:layout_width="49dp"
+                android:layout_height="56dp"
+                android:background="@drawable/btn_add_coffe"
+                android:padding="20dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -95,19 +102,38 @@
                     android:gravity="center"
                     android:text="TextView" />
 
-            </LinearLayout></LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/btn_add_coffe"
-                android:layout_width="49dp"
-                android:layout_height="56dp"
-                android:background="@drawable/btn_add_coffe"
-                android:padding="20dp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Almuerzos"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtview_sandwiches_customer"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="10dp"
+                android:text="TextView"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/btn_delete_customer"
