@@ -8,10 +8,23 @@
     android:padding="20dp"
     tools:context=".view.AddCustomerActivity">
 
+  <Button
+      android:id="@+id/button_addcustomer"
+      android:layout_width="wrap_content"
+      android:layout_height="48dp"
+      android:layout_gravity="center_horizontal"
+      android:onClick="butAddCustomer"
+      android:text="Añadir"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/addcustomerlayout"
+      app:layout_constraintVertical_bias="0.118" />
+
   <LinearLayout
       android:id="@+id/addcustomerlayout"
-      android:layout_width="411dp"
-      android:layout_height="275dp"
+      android:layout_width="380dp"
+      android:layout_height="246dp"
       android:orientation="vertical"
       android:padding="10dp"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -19,48 +32,102 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addstation_name_layoutt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="316dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:hint="Nombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/edtxt_customer_name"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_numbercoffes_customer"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="316dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:hint="Consumiciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/edtxt_customer_consumiciones"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:inputType="number"/>
-    </com.google.android.material.textfield.TextInputLayout>
-    <Button
-        android:id="@+id/button_addcustomer"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:onClick="butAddCustomer"
-        android:text="Añadir" />
+        android:orientation="horizontal">
+
+      <ImageView
+          android:id="@+id/imageView"
+          android:layout_width="83dp"
+          android:layout_height="73dp"
+          app:srcCompat="@drawable/hombre" />
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/addstation_name_layoutt"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="316dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:hint="Nombre"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtxt_customer_name"
+            android:layout_width="248dp"
+            android:layout_height="wrap_content" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <ImageView
+          android:id="@+id/imageView2"
+          android:layout_width="83dp"
+          android:layout_height="73dp"
+          app:srcCompat="@drawable/btn_add_coffe" />
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/add_numbercoffes_customer"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="316dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:hint="Consumiciones"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtxt_customer_consumiciones"
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+      <ImageView
+          android:id="@+id/imageView3"
+          android:layout_width="83dp"
+          android:layout_height="73dp"
+          app:srcCompat="@drawable/emparedado" />
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/add_numbersandwinch_customer"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="316dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:hint="Almuerzos"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtxt_customer_sandwiches"
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
   </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,21 +19,29 @@ public class Customer {
     private boolean award = false;
     @ColumnInfo
     private int numbercoffes;
+    @ColumnInfo
+    private int sandwiches;
+    @ColumnInfo
+    private int consusandwiches;
 
     public Customer(){
 
     }
 
-    public Customer(long idcustomer, String name, int coffes, boolean award, int consumiciones) {
+    public Customer(long idcustomer, String name, int coffes, int consumiciones, int sandwiches, int consusandwiches) {
         this.idcustomer = idcustomer;
         this.name = name;
         this.coffes = coffes;
         this.numbercoffes = consumiciones;
+        this.sandwiches = sandwiches;
+        this.consusandwiches = consusandwiches;
     }
-    public Customer(String name, int coffes, int ingestions) {
+    public Customer(String name, int coffes, int ingestions, int sandwiches, int consusandwiches) {
         this.name = name;
         this.coffes = coffes;
         this.numbercoffes = ingestions;
+        this.sandwiches = sandwiches;
+        this.consusandwiches = consusandwiches;
     }
 
     public long getIdcustomer() {
@@ -74,5 +82,21 @@ public class Customer {
 
     public void setNumbercoffes(int numbercoffes) {
         this.numbercoffes = numbercoffes;
+    }
+
+    public int getSandwiches() {
+        return sandwiches;
+    }
+
+    public void setSandwiches(int sandwiches) {
+        this.sandwiches = sandwiches;
+    }
+
+    public int getConsusandwiches() {
+        return consusandwiches;
+    }
+
+    public void setConsusandwiches(int consusandwiches) {
+        this.consusandwiches = consusandwiches;
     }
 }
