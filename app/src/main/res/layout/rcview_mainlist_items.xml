@@ -147,6 +147,22 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:src="@drawable/premio" />
+
+                <TextView
+                    android:id="@+id/txtview_datewin_sandwich"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtview_dateend_sandwich"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TextView" />
             </LinearLayout>
         </LinearLayout>
 

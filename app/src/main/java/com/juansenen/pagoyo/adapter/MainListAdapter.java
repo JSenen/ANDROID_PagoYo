@@ -73,7 +73,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
             holder.txtDateWin.setVisibility(View.VISIBLE);
-            holder.txtDateWin.setVisibility(View.VISIBLE);
             long id = customerList.get(position).getIdcustomer();
             long dat = seeDateWin(id);
 
@@ -111,8 +110,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
         if (customerList.get(position).getSandwiches() >= customerList.get(position).getConsusandwiches()) {
             holder.imgAwardSandwich.setVisibility(View.VISIBLE);
-            //holder.txtDateWin.setVisibility(View.VISIBLE);
-            //holder.txtDateWin.setVisibility(View.VISIBLE);
+            holder.txtDateWinSandwich.setVisibility(View.VISIBLE);
             long id = customerList.get(position).getIdcustomer();
             long dat = seeDateWinSandwich(id);
 
@@ -129,14 +127,14 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             // Formatear la fecha legible y establecerla en el TextView
             String formattedDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             String formattedDatePlusTen = localDatePlusTen.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            //holder.txtDateWin.setText(formattedDate);
-            //holder.txtDateEnd.setText(formattedDatePlusTen);
+            holder.txtDateWinSandwich.setText(formattedDate);
+            holder.txtDateEndSandwich.setText(formattedDatePlusTen);
 
             //Si se supera un dia de los 10 establecidos, el premio desaparece
             if (daysDifference > 10 ) {
                 holder.imgAwardSandwich.setVisibility(View.INVISIBLE);
-                //holder.txtDateWin.setVisibility(View.INVISIBLE);
-                //holder.txtDateEnd.setVisibility(View.INVISIBLE);
+                holder.txtDateWinSandwich.setVisibility(View.INVISIBLE);
+                holder.txtDateEndSandwich.setVisibility(View.INVISIBLE);
                 //Borramos el premio
                 customerList.get(position).setSandwiches(0);
                 deleteAwardSandwich(id, position);
@@ -144,8 +142,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
         } else {
             holder.imgAwardSandwich.setVisibility(View.INVISIBLE);
-            //holder.txtDateWin.setVisibility(View.INVISIBLE);
-            //holder.txtDateEnd.setVisibility(View.INVISIBLE);
+            holder.txtDateWinSandwich.setVisibility(View.INVISIBLE);
+            holder.txtDateEndSandwich.setVisibility(View.INVISIBLE);
         }
 
 
@@ -159,7 +157,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public class MainListHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtCustomerName, txtCustomerCoffes, txtCustomerSandwiches, txtDateWin, txtDateEnd;
+        public TextView txtCustomerName, txtCustomerCoffes, txtCustomerSandwiches, txtDateWin, txtDateEnd
+                , txtDateWinSandwich, txtDateEndSandwich;
         public ImageButton btnDeleteCustomer, btnAddCoffe, btnAddSandwich;
         public ImageView imgAward, imgAwardSandwich;
         public View parentview;
@@ -175,6 +174,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             txtDateWin = view.findViewById((R.id.txtview_datewin));
             txtDateEnd = view.findViewById(R.id.txtview_dateend);
             txtCustomerSandwiches = view.findViewById(R.id.txtview_sandwiches_customer);
+            txtDateWinSandwich = view.findViewById(R.id.txtview_datewin_sandwich);
+            txtDateEndSandwich = view.findViewById(R.id.txtview_dateend_sandwich);
 
             btnDeleteCustomer = view.findViewById(R.id.btn_delete_customer);
             btnDeleteCustomer.setOnClickListener(view1 -> deleteCustomer(getAdapterPosition()));
