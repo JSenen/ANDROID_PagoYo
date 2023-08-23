@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface AwardSandwichDAO {
     @Query("SELECT * FROM award_sandwinch")
-    List<Award> getAll();
+    List<AwardSandwich> getAll();
 
     @Query("SELECT datewin FROM award_sandwinch WHERE idAwardCustomer =:idcustomer")
     long searchDate(long idcustomer);
