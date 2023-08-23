@@ -13,14 +13,16 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.juansenen.pagoyo.domain.Award;
+import com.juansenen.pagoyo.domain.AwardSandwich;
 import com.juansenen.pagoyo.domain.Converters;
 import com.juansenen.pagoyo.domain.Customer;
 
-@Database(entities = {Customer.class, Award.class}, version = 3)
+@Database(entities = {Customer.class, Award.class, AwardSandwich.class}, version = 3)
 @TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
     public abstract CustomerDAO customerDAO();
     public abstract AwardDAO awardDAO();
+    public abstract AwardSandwichDAO awardSandwichDAO();
 
     // Aqui definimos las migraciones entre Bases de Datos
     private static final Migration MIGRATION_2_3 = new Migration(2, 3) {

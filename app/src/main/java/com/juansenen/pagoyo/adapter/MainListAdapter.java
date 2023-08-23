@@ -22,6 +22,7 @@ import androidx.room.Room;
 import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.db.AppDataBase;
 import com.juansenen.pagoyo.domain.Award;
+import com.juansenen.pagoyo.domain.AwardSandwich;
 import com.juansenen.pagoyo.domain.CoffesContainer;
 import com.juansenen.pagoyo.domain.Converters;
 import com.juansenen.pagoyo.domain.Customer;
@@ -180,6 +181,11 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             if (sandwiches < ingestionSandwich){
                 sandwiches = sandwiches + 1;
                 if (sandwiches == ingestionSandwich){
+                    AwardSandwich awardSandwich = new AwardSandwich();
+                    LocalDate currentDate = LocalDate.now();
+                    awardSandwich.setDatewin(currentDate);
+                    awardSandwich.setIdAwardCustomer(id);
+                    updateAwardSandwichDB(awardSandwich);
 
                 }
             }else{
@@ -275,6 +281,12 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)
                     .allowMainThreadQueries().build();
             db.awardDAO().insert(award);
+        }
+        private void updateAwardSandwichDB(AwardSandwich awardSandwich){
+            //Actulizamos DB de premios almuerzo
+            final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)
+                    .allowMainThreadQueries().build();
+            db.awardSandwichDAO().insert(awardSandwich);
         }
         private void updateSandWichDB(int sandwiches, long id, int position){
             //Actulizamos DB de almuerzos
