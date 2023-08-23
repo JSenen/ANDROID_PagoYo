@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface CustomerDAO {
 
-    @Query("SELECT * FROM customer")
+    @Query("SELECT * FROM customer ORDER BY name")
     List<Customer> getAll();
 
     @Insert
@@ -23,6 +23,8 @@ public interface CustomerDAO {
 
     @Query("UPDATE customer SET coffes=:coffe WHERE idcustomer = :id")
     void updateCoffeCustomer(int coffe, long id);
+    @Query("UPDATE customer SET sandwiches=:sandwiches WHERE idcustomer = :id")
+    void updateSandwichesCustomer(int sandwiches, long id);
 
 
 }

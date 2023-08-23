@@ -25,6 +25,7 @@ import com.juansenen.pagoyo.domain.Award;
 import com.juansenen.pagoyo.domain.CoffesContainer;
 import com.juansenen.pagoyo.domain.Converters;
 import com.juansenen.pagoyo.domain.Customer;
+import com.juansenen.pagoyo.domain.SandWichContainer;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -147,18 +148,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
         }
 
-        private void addSandwinchCustomer(int position) {
-
-            //Buscamos el cliente y añadimos 1 a los almuerzos
-            long id = customerList.get(position).getIdcustomer();
-            int sandwiches = customerList.get(position).getSandwiches();
-            int ingestionSandwich = customerList.get(position).getConsusandwiches();
-
-            //TODO finish add sandwich
-            sandwiches = sandwiches + 1;
-
-        }
-
         public void deleteCustomer(int position){
 
             //Creamos dialogo de alerta con opciones
@@ -180,6 +169,22 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+
+        private void addSandwinchCustomer(int position) {
+
+            //Buscamos el cliente y añadimos 1 a los almuerzos
+            long id = customerList.get(position).getIdcustomer();
+            int sandwiches = customerList.get(position).getSandwiches();
+            int ingestionSandwich = customerList.get(position).getConsusandwiches();
+
+            //TODO finish add sandwich
+            sandwiches = sandwiches + 1;
+            updateSandWichDB(sandwiches, id, position);
+
+
+
+        }
+
         private void addCoffeCustomer(int position) {
             //Buscamos el cliente y añadimos 1 al cafe
             long id = customerList.get(position).getIdcustomer();
@@ -244,6 +249,18 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)
                     .allowMainThreadQueries().build();
             db.awardDAO().insert(award);
+        }
+        private void updateSandWichDB(int sandwiches, long id, int position){
+            //Actulizamos DB de almuerzos
+            final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)
+                    .allowMainThreadQueries().build();
+            db.customerDAO().updateSandwichesCustomer(sandwiches, id);
+
+            // Actualizamos los datos en la lista local
+            customerList.get(position).setSandwiches(sandwiches);
+
+            //Notificamos el cambio
+            notifyItemChanged(position);
         }
 
 
