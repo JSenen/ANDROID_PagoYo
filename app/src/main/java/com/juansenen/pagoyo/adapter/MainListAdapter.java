@@ -177,11 +177,37 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             int sandwiches = customerList.get(position).getSandwiches();
             int ingestionSandwich = customerList.get(position).getConsusandwiches();
 
-            //TODO finish add sandwich
-            sandwiches = sandwiches + 1;
+            if (sandwiches < ingestionSandwich){
+                sandwiches = sandwiches + 1;
+                if (sandwiches == ingestionSandwich){
+
+                }
+            }else{
+                SandWichContainer sandWichContainer = new SandWichContainer(sandwiches);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("ENTREGAR ALMUERZO")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sandWichContainer.value = 0;
+                                updateSandWichDB(sandWichContainer.value, id, position);
+                                deleteAward(id, position); //TODO FIX IT
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+            }
+
             updateSandWichDB(sandwiches, id, position);
-
-
+            Toast.makeText(context,"Almuerzo añadido",Toast.LENGTH_SHORT).show();
 
         }
 
@@ -203,7 +229,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             }else {
                 CoffesContainer coffesContainer = new CoffesContainer(coffes);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("ENTREGAR PREMIO")
+                builder.setMessage("ENTREGAR CAFÉ")
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
