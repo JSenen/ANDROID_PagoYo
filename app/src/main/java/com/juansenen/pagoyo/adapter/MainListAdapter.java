@@ -22,9 +22,11 @@ import androidx.room.Room;
 import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.db.AppDataBase;
 import com.juansenen.pagoyo.domain.Award;
+import com.juansenen.pagoyo.domain.AwardSandwich;
 import com.juansenen.pagoyo.domain.CoffesContainer;
 import com.juansenen.pagoyo.domain.Converters;
 import com.juansenen.pagoyo.domain.Customer;
+import com.juansenen.pagoyo.domain.SandWichContainer;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -71,7 +73,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         if (customerList.get(position).getCoffes() >= customerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
             holder.txtDateWin.setVisibility(View.VISIBLE);
-            holder.txtDateWin.setVisibility(View.VISIBLE);
             long id = customerList.get(position).getIdcustomer();
             long dat = seeDateWin(id);
 
@@ -106,6 +107,46 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             holder.txtDateWin.setVisibility(View.INVISIBLE);
             holder.txtDateEnd.setVisibility(View.INVISIBLE);
         }
+
+        if (customerList.get(position).getSandwiches() >= customerList.get(position).getConsusandwiches()) {
+            holder.imgAwardSandwich.setVisibility(View.VISIBLE);
+            holder.txtDateWinSandwich.setVisibility(View.VISIBLE);
+            long id = customerList.get(position).getIdcustomer();
+            long dat = seeDateWinSandwich(id);
+
+
+            // Convertir el valor long a LocalDate utilizando el converter
+            LocalDate localDate = Converters.fromTimestamp(dat);
+            LocalDate localDatePlusTen = localDate.plusDays(10);
+            LocalDate localDateToday = LocalDate.now();
+
+            //Caluclo diferencia dias entre premio y hoy
+            long daysDifference = localDate.until(localDateToday, ChronoUnit.DAYS);
+
+
+            // Formatear la fecha legible y establecerla en el TextView
+            String formattedDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String formattedDatePlusTen = localDatePlusTen.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            holder.txtDateWinSandwich.setText(formattedDate);
+            holder.txtDateEndSandwich.setText(formattedDatePlusTen);
+
+            //Si se supera un dia de los 10 establecidos, el premio desaparece
+            if (daysDifference > 10 ) {
+                holder.imgAwardSandwich.setVisibility(View.INVISIBLE);
+                holder.txtDateWinSandwich.setVisibility(View.INVISIBLE);
+                holder.txtDateEndSandwich.setVisibility(View.INVISIBLE);
+                //Borramos el premio
+                customerList.get(position).setSandwiches(0);
+                deleteAwardSandwich(id, position);
+            }
+
+        } else {
+            holder.imgAwardSandwich.setVisibility(View.INVISIBLE);
+            holder.txtDateWinSandwich.setVisibility(View.INVISIBLE);
+            holder.txtDateEndSandwich.setVisibility(View.INVISIBLE);
+        }
+
+
     }
 
     //Obtenemos el tamaño del listado
@@ -116,9 +157,10 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public class MainListHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtCustomerName, txtCustomerCoffes, txtCustomerSandwiches, txtDateWin, txtDateEnd;
-        public ImageButton btnDeleteCustomer, btnAddCoffe;
-        public ImageView imgAward;
+        public TextView txtCustomerName, txtCustomerCoffes, txtCustomerSandwiches, txtDateWin, txtDateEnd
+                , txtDateWinSandwich, txtDateEndSandwich;
+        public ImageButton btnDeleteCustomer, btnAddCoffe, btnAddSandwich;
+        public ImageView imgAward, imgAwardSandwich;
         public View parentview;
 
         public MainListHolder(View view){
@@ -132,6 +174,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             txtDateWin = view.findViewById((R.id.txtview_datewin));
             txtDateEnd = view.findViewById(R.id.txtview_dateend);
             txtCustomerSandwiches = view.findViewById(R.id.txtview_sandwiches_customer);
+            txtDateWinSandwich = view.findViewById(R.id.txtview_datewin_sandwich);
+            txtDateEndSandwich = view.findViewById(R.id.txtview_dateend_sandwich);
 
             btnDeleteCustomer = view.findViewById(R.id.btn_delete_customer);
             btnDeleteCustomer.setOnClickListener(view1 -> deleteCustomer(getAdapterPosition()));
@@ -139,7 +183,11 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             btnAddCoffe = view.findViewById(R.id.btn_add_coffe);
             btnAddCoffe.setOnClickListener((view2 -> addCoffeCustomer(getAdapterPosition())));
 
+            btnAddSandwich = view.findViewById(R.id.btn_add_sandwich);
+            btnAddSandwich.setOnClickListener((view3 -> addSandwinchCustomer(getAdapterPosition())));
+
             imgAward = view.findViewById(R.id.imgview_award);
+            imgAwardSandwich = view.findViewById(R.id.imagenawardSandwich);
 
 
         }
@@ -165,6 +213,53 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+
+        private void addSandwinchCustomer(int position) {
+
+            //Buscamos el cliente y añadimos 1 a los almuerzos
+            long id = customerList.get(position).getIdcustomer();
+            int sandwiches = customerList.get(position).getSandwiches();
+            int ingestionSandwich = customerList.get(position).getConsusandwiches();
+
+            if (sandwiches < ingestionSandwich){
+                sandwiches = sandwiches + 1;
+                if (sandwiches == ingestionSandwich){
+                    AwardSandwich awardSandwich = new AwardSandwich();
+                    LocalDate currentDate = LocalDate.now();
+                    awardSandwich.setDatewin(currentDate);
+                    awardSandwich.setIdAwardCustomer(id);
+                    updateAwardSandwichDB(awardSandwich);
+
+                }
+            }else{
+                SandWichContainer sandWichContainer = new SandWichContainer(sandwiches);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("ENTREGAR ALMUERZO")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sandWichContainer.value = 0;
+                                updateSandWichDB(sandWichContainer.value, id, position);
+                                deleteAwardSandwich(id, position);
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+            }
+
+            updateSandWichDB(sandwiches, id, position);
+            Toast.makeText(context,"Almuerzo añadido",Toast.LENGTH_SHORT).show();
+
+        }
+
         private void addCoffeCustomer(int position) {
             //Buscamos el cliente y añadimos 1 al cafe
             long id = customerList.get(position).getIdcustomer();
@@ -183,7 +278,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             }else {
                 CoffesContainer coffesContainer = new CoffesContainer(coffes);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("ENTREGAR PREMIO")
+                builder.setMessage("ENTREGAR CAFÉ")
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -230,6 +325,24 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                     .allowMainThreadQueries().build();
             db.awardDAO().insert(award);
         }
+        private void updateAwardSandwichDB(AwardSandwich awardSandwich){
+            //Actulizamos DB de premios almuerzo
+            final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)
+                    .allowMainThreadQueries().build();
+            db.awardSandwichDAO().insert(awardSandwich);
+        }
+        private void updateSandWichDB(int sandwiches, long id, int position){
+            //Actulizamos DB de almuerzos
+            final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class,DATABASE_NAME)
+                    .allowMainThreadQueries().build();
+            db.customerDAO().updateSandwichesCustomer(sandwiches, id);
+
+            // Actualizamos los datos en la lista local
+            customerList.get(position).setSandwiches(sandwiches);
+
+            //Notificamos el cambio
+            notifyItemChanged(position);
+        }
 
 
     }
@@ -238,6 +351,13 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
                 .allowMainThreadQueries().build();
         long dat = db.awardDAO().searchDate(idcustomer);
+        return dat;
+    }
+    public long seeDateWinSandwich(long idcustomer){
+        //Buscamos en la base de datos
+        final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        long dat = db.awardSandwichDAO().searchDate(idcustomer);
         return dat;
     }
     public void deleteAward(long idcustomer, int position){
@@ -252,6 +372,17 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         }
 
 
+    }
+    public void deleteAwardSandwich(long idcustomer, int position){
+        //Eliminamos el premio
+        final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+        db.awardSandwichDAO().deleteByPosition(idcustomer);
+
+        // Llamar al método en el AdapterListener de la MainActivity
+        if (adapterListener != null) {
+            adapterListener.onDeleteAndOtherOperations(idcustomer, position);
+        }
     }
 
     public interface AdapterListener {
