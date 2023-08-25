@@ -50,7 +50,8 @@ public class AddCustomerActivity extends AppCompatActivity {
         db.customerDAO().insert(customer);
         Log.i("INFO--> ","Añadido a DB");
         //Notificacion emergente
-        Toast.makeText(this, "Nuevo registro añadido", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Nuevo registro añadido", Toast.LENGTH_LONG).show();
+        Snackbar.make(view, "Cliente añadido", Snackbar.LENGTH_LONG).show();
     }
 
     //Opciones de menu en la action bar
