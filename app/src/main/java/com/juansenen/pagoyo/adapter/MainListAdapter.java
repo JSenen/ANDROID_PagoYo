@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.db.AppDataBase;
 import com.juansenen.pagoyo.domain.Award;
@@ -256,7 +257,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             }
 
             updateSandWichDB(sandwiches, id, position);
-            Toast.makeText(context,"Almuerzo añadido",Toast.LENGTH_SHORT).show();
+            Snackbar.make(parentview, "Almuerzo añadido", Snackbar.LENGTH_SHORT).show();
+
 
         }
 
@@ -301,7 +303,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             updateDB(coffes, id, position);
 
 
-            Toast.makeText(context,"Cafe añadido",Toast.LENGTH_SHORT).show();
+            Snackbar.make(parentview, "Café añadido", Snackbar.LENGTH_SHORT).show();
 
         }
 
