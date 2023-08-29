@@ -46,7 +46,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public MainListAdapter(Context context, List<Customer> customerList, AdapterListener listener) {
         this.originalCustomerList = customerList;
-        this.filteredCustomerList = new ArrayList<>(customerList); // Copia los elementos
+        this.filteredCustomerList = new ArrayList<>(originalCustomerList); // Copia los elementos
         this.context = context;
         this.adapterListener = listener;
     }
@@ -68,10 +68,10 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         holder.txtCustomerSandwiches.setText(String.valueOf(filteredCustomerList.get(position).getSandwiches()));
 
         // Comprobamos el número de cafés y configuramos la visibilidad de la imagen premiada
-        if (originalCustomerList.get(position).getCoffes() >= originalCustomerList.get(position).getNumbercoffes()) {
+        if (filteredCustomerList.get(position).getCoffes() >= filteredCustomerList.get(position).getNumbercoffes()) {
             holder.imgAward.setVisibility(View.VISIBLE);
             holder.txtDateWin.setVisibility(View.VISIBLE);
-            long id = originalCustomerList.get(position).getIdcustomer();
+            long id = filteredCustomerList.get(position).getIdcustomer();
             long dat = seeDateWin(id);
 
 
@@ -106,10 +106,10 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             holder.txtDateEnd.setVisibility(View.INVISIBLE);
         }
 
-        if (originalCustomerList.get(position).getSandwiches() >= originalCustomerList.get(position).getConsusandwiches()) {
+        if (filteredCustomerList.get(position).getSandwiches() >= filteredCustomerList.get(position).getConsusandwiches()) {
             holder.imgAwardSandwich.setVisibility(View.VISIBLE);
             holder.txtDateWinSandwich.setVisibility(View.VISIBLE);
-            long id = originalCustomerList.get(position).getIdcustomer();
+            long id = filteredCustomerList.get(position).getIdcustomer();
             long dat = seeDateWinSandwich(id);
 
 
@@ -134,7 +134,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
                 holder.txtDateWinSandwich.setVisibility(View.INVISIBLE);
                 holder.txtDateEndSandwich.setVisibility(View.INVISIBLE);
                 //Borramos el premio
-                originalCustomerList.get(position).setSandwiches(0);
+                filteredCustomerList.get(position).setSandwiches(0);
                 deleteAwardSandwich(id, position);
             }
 
@@ -215,9 +215,9 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
         private void addSandwinchCustomer(int position) {
 
             //Buscamos el cliente y añadimos 1 a los almuerzos
-            long id = originalCustomerList.get(position).getIdcustomer();
-            int sandwiches = originalCustomerList.get(position).getSandwiches();
-            int ingestionSandwich = originalCustomerList.get(position).getConsusandwiches();
+            long id = filteredCustomerList.get(position).getIdcustomer();
+            int sandwiches = filteredCustomerList.get(position).getSandwiches();
+            int ingestionSandwich = filteredCustomerList.get(position).getConsusandwiches();
 
             if (sandwiches < ingestionSandwich){
                 sandwiches = sandwiches + 1;
@@ -261,9 +261,9 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
         private void addCoffeCustomer(int position) {
             //Buscamos el cliente y añadimos 1 al cafe
-            long id = originalCustomerList.get(position).getIdcustomer();
-            int coffes = originalCustomerList.get(position).getCoffes();
-            int ingestions = originalCustomerList.get(position).getNumbercoffes();
+            long id = filteredCustomerList.get(position).getIdcustomer();
+            int coffes = filteredCustomerList.get(position).getCoffes();
+            int ingestions = filteredCustomerList.get(position).getNumbercoffes();
 
             if (coffes < ingestions){
                 coffes = coffes +1;
@@ -311,7 +311,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             db.customerDAO().updateCoffeCustomer(coffes, id);
 
             // Actualizamos los datos en la lista local
-            originalCustomerList.get(position).setCoffes(coffes);
+            filteredCustomerList.get(position).setCoffes(coffes);
 
             //Notificamos el cambio
             notifyItemChanged(position);
@@ -337,7 +337,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             db.customerDAO().updateSandwichesCustomer(sandwiches, id);
 
             // Actualizamos los datos en la lista local
-            originalCustomerList.get(position).setSandwiches(sandwiches);
+            filteredCustomerList.get(position).setSandwiches(sandwiches);
 
             //Notificamos el cambio
             notifyItemChanged(position);

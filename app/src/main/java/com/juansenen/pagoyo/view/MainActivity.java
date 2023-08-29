@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainListAdapter.A
         customerList = new ArrayList<>();
 
         // Inicializamos el recyclerview del layout
-        RecyclerView recyclerView = findViewById(R.id.rcview_mainlist);
+        recyclerView = findViewById(R.id.rcview_mainlist);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
