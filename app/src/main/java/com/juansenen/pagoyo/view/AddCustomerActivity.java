@@ -42,8 +42,31 @@ public class AddCustomerActivity extends AppCompatActivity {
         //Recuperamos datos
         String newCustomer = edtxCustomer.getText().toString();
         newCustomer = newCustomer.toUpperCase();
-        int customerConsumiciones = Integer.parseInt(edtxConsumiciones.getText().toString());
-        int customerSandwiches = Integer.parseInt(edtSanwiches.getText().toString());
+        int customerConsumiciones;
+        String customerConsumicionesTXT = edtxConsumiciones.getText().toString();
+        //Si no se introduce numero, pone 10 por defecto. Si no es numero tambien
+        if ( customerConsumicionesTXT.isEmpty()){
+            customerConsumiciones = 10;
+        }else {
+            try{
+                customerConsumiciones = Integer.parseInt(edtxConsumiciones.getText().toString());
+            }catch (NumberFormatException nfe){
+                customerConsumiciones = 10;
+            }
+        }
+        //Si no introduce numero de almuerzos, asigna 10 pordefecto. Si no es numero tambien
+        String customerSandwichesTXT = edtSanwiches.getText().toString();
+        int customerSandwiches;
+        if (customerSandwichesTXT.isEmpty()){
+            customerSandwiches = 10;
+        }else{
+            try {
+                customerSandwiches = Integer.parseInt(customerSandwichesTXT);
+            }catch (NumberFormatException nfe){
+                customerSandwiches = 10;
+            }
+        }
+
         //Crear el objeto
         Customer customer = new Customer(newCustomer, 0, customerConsumiciones, 0, customerSandwiches);
         //Insertar en BD
