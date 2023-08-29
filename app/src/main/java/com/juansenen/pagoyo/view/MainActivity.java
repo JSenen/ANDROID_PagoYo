@@ -4,6 +4,7 @@ import static com.juansenen.pagoyo.db.Constans.DATABASE_NAME;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -66,9 +67,26 @@ public class MainActivity extends AppCompatActivity implements MainListAdapter.A
     //Opciones de menu en la action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_menu,menu);
-        return true;
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
 
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        // Configurar el evento de cambio de texto en el SearchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filtrarLista(newText); // Filtrar la lista en el adaptador
+                return true;
+            }
+        });
+
+        return true;
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

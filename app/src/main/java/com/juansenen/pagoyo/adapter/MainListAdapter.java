@@ -32,6 +32,7 @@ import com.juansenen.pagoyo.domain.SandWichContainer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -389,6 +390,19 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     public interface AdapterListener {
         void onDeleteAndOtherOperations(long id, int position);
+    }
+
+    public void filtrarLista(String consulta) {
+        List<Customer> listaFiltrada = new ArrayList<>();
+
+        for (Customer cliente : customerList) {
+            if (cliente.getName().toLowerCase().contains(consulta.toLowerCase())) {
+                listaFiltrada.add(cliente);
+            }
+        }
+
+        customerList = listaFiltrada;
+        notifyDataSetChanged();
     }
 
 }
