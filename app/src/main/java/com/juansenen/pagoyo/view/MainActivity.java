@@ -10,8 +10,11 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.juansenen.pagoyo.R;
 import com.juansenen.pagoyo.adapter.MainListAdapter;
@@ -24,25 +27,69 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MainListAdapter.AdapterListener {
 
     public List<Customer> customerList;
+    private List<Customer> originalCustomerList; // Lista original sin filtrar
     public MainListAdapter adapter;
+    private EditText editTextSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Vaciamos lista
+        // Inicializamos listas
         customerList = new ArrayList<>();
+        originalCustomerList = new ArrayList<>(); // Inicializa la lista original
 
-        //Recuperamos el recyclerview del layout
+        editTextSearch = findViewById(R.id.editTextSearch);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filterCustomers(editable.toString());
+            }
+        });
+
+        // Recuperamos el recyclerview del layout
         RecyclerView recyclerView = findViewById(R.id.rcview_mainlist);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        //Construimos el adapter del recyclerview
-        adapter = new MainListAdapter(this,customerList);
+        // Construimos el adapter del recyclerview
+        adapter = new MainListAdapter(this, customerList);
         recyclerView.setAdapter(adapter);
+
+        loadCustomersFromDatabase(); // Carga los datos desde la base de datos
     }
+
+    private void loadCustomersFromDatabase() {
+        final AppDataBase db = Room.databaseBuilder(this, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+
+        // Añadimos los clientes de la BD a originalCustomerList
+        originalCustomerList.addAll(db.customerDAO().getAll());
+        // Añadimos los mismos datos a customerList inicialmente
+        customerList.addAll(originalCustomerList);
+    }
+
+    private void filterCustomers(String searchText) {
+        List<Customer> filteredList = new ArrayList<>(); // Crear una lista para los resultados filtrados
+        for (Customer customer : originalCustomerList) {
+            if (customer.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(customer); // Agregar a la lista filtrada
+            }
+        }
+        customerList.clear(); // Limpiar la lista original
+        customerList.addAll(filteredList); // Agregar los elementos filtrados a la lista original
+        adapter.notifyDataSetChanged(); // Notificar cambios al adaptador
+    }
+
 
     //Al volver a la Activity principal, recuperamos los datos de la BD
     @Override

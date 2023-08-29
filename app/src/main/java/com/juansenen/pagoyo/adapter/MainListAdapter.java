@@ -32,6 +32,7 @@ import com.juansenen.pagoyo.domain.SandWichContainer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,11 +40,19 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
     private List<Customer> customerList;
     private List<Award> awardList;
+    private List<Customer> originalCustomerList;
     private Context context;
 
-    public MainListAdapter (Context context, List<Customer> customerList){
+    public MainListAdapter(Context context, List<Customer> customerList) {
         this.context = context;
         this.customerList = customerList;
+        this.originalCustomerList = new ArrayList<>(customerList);
+    }
+
+    public void updateData(List<Customer> filteredList) {
+        customerList.clear();
+        customerList.addAll(filteredList);
+        notifyDataSetChanged();
     }
 
     // Otros campos del adaptador
@@ -390,5 +399,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
     public interface AdapterListener {
         void onDeleteAndOtherOperations(long id, int position);
     }
+
+
 
 }
