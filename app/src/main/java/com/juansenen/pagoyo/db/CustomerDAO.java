@@ -26,5 +26,8 @@ public interface CustomerDAO {
     @Query("UPDATE customer SET sandwiches=:sandwiches WHERE idcustomer = :id")
     void updateSandwichesCustomer(int sandwiches, long id);
 
+    @Query("SELECT * FROM customer WHERE name LIKE :query || '%'")
+    List<Customer> searchCustomersByName(String query);
+
 
 }
