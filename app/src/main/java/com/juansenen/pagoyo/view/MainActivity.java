@@ -11,6 +11,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,42 +27,45 @@ public class MainActivity extends AppCompatActivity implements MainListAdapter.A
 
     public List<Customer> customerList;
     public MainListAdapter adapter;
+    private RecyclerView recyclerView; // Declaración de recyclerView como variable miembro
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Vaciamos lista
+        // Inicializamos la lista de clientes
         customerList = new ArrayList<>();
 
-        //Recuperamos el recyclerview del layout
+        // Inicializamos el recyclerview del layout
         RecyclerView recyclerView = findViewById(R.id.rcview_mainlist);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        //Construimos el adapter del recyclerview
-        adapter = new MainListAdapter(this,customerList);
+
+        // Construimos el adapter del recyclerview
+        adapter = new MainListAdapter(this, customerList, this);
         recyclerView.setAdapter(adapter);
     }
+
+
+
 
     //Al volver a la Activity principal, recuperamos los datos de la BD
     @Override
     protected void onResume() {
         super.onResume();
 
-
-
-        final AppDataBase db = Room.databaseBuilder(this,AppDataBase.class,DATABASE_NAME)
+        final AppDataBase db = Room.databaseBuilder(this, AppDataBase.class, DATABASE_NAME)
                 .allowMainThreadQueries().build();
 
-        //Limpiamos la lista de clientes
+        // Limpiamos la lista de clientes
         customerList.clear();
-        //Añadimos los clientes de la BD
+        // Añadimos los clientes de la BD
         customerList.addAll(db.customerDAO().getAll());
-        //Notificamos cambios al adapter
-        adapter.notifyDataSetChanged();
 
+        // Notificamos cambios al adaptador
+        adapter.notifyDataSetChanged();
     }
 
     //Opciones de menu en la action bar
@@ -72,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements MainListAdapter.A
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
 
-        // Configurar el evento de cambio de texto en el SearchView
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -81,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements MainListAdapter.A
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.filtrarLista(newText); // Filtrar la lista en el adaptador
+                Log.i("METODO","--> filtarlista por texto "+newText);
+                adapter.filtrarLista(newText); // Utiliza la referencia al adaptador para llamar al método
                 return true;
             }
         });
@@ -93,28 +97,44 @@ public class MainActivity extends AppCompatActivity implements MainListAdapter.A
         if (item.getItemId() == R.id.item_add) {
 
             Intent intent = new Intent(this, AddCustomerActivity.class);
-            finish();
             startActivity(intent);
 
             return true;
+        } else if (item.getItemId() == R.id.item_update) {
+            reloadAndNotifyAdapter(); // Volver a cargar y notificar al adaptador
+            return true;
         }
-
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 
     private void performDeleteAndOtherOperations(long id, int position) {
         // Llamar a deleteAward en el adaptador
-        adapter.deleteAward(id,position);
+        adapter.deleteAward(id, position);
 
         // Realizar otras operaciones o cambios en los datos
         customerList.get(position).setCoffes(0);
 
-        // Notificar al adaptador de los cambios
-        adapter.notifyDataSetChanged();
+        // Llamar a reloadAndNotifyAdapter para actualizar los datos
+        reloadAndNotifyAdapter();
     }
 
     @Override
     public void onDeleteAndOtherOperations(long id, int position) {
         performDeleteAndOtherOperations(id, position);
     }
+    //Actualizar todos los datos recargando
+    private void reloadAndNotifyAdapter() {
+        final AppDataBase db = Room.databaseBuilder(this, AppDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries().build();
+
+        // Limpiar la lista de clientes
+        customerList.clear();
+
+        // Obtener nuevamente los clientes de la BD
+        customerList.addAll(db.customerDAO().getAll());
+
+        // Notificar cambios al adaptador
+        adapter.notifyDataSetChanged();
+    }
+
 }
