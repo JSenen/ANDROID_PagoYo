@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PagoYo</string>
+    <string name="desea_boorar_el_cliente">Desea borrar el cliente?</string>
+    <string name="eliminar_cliente">Borrar el cliente</string>
+    <string name="si">Si</string>
+    <string name="almuerzo_a_adido">Bocadillo añadido</string>
+    <string name="entregar_almuerzo">Entregar bocadillo</string>
+    <string name="entregar_caf">Entregar café</string>
+    <string name="caf_a_adido">Cafe añadido</string>
+    <string name="cliente_a_adido">Cliente añadido</string>
+    <string name="a_adir">Añadir</string>
+    <string name="nombre">Nombre</string>
+    <string name="consumiciones">Consumiciones</string>
+    <string name="almuerzos">Bocadillos</string>
+    <string name="search_by_name">Buscar por nombre ...</string>
+    <string name="Costumer">Cliente</string>
+    <string name="caf_s">Cafes</string>
+</resources>

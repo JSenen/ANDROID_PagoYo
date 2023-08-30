@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">PagoYo</string>
+    <string name="desea_boorar_el_cliente">Do you want to delete the user?</string>
+    <string name="eliminar_cliente">Delete customer</string>
+    <string name="si">Yes</string>
+    <string name="almuerzo_a_adido">Added sandwich</string>
+    <string name="entregar_almuerzo">Deliver sandwich</string>
+    <string name="entregar_caf">Deliver coffe</string>
+    <string name="caf_a_adido">Added coffe</string>
+    <string name="cliente_a_adido">Added customer</string>
+    <string name="a_adir">Add</string>
+    <string name="nombre">Name</string>
+    <string name="consumiciones">Ingestions</string>
+    <string name="almuerzos">Sandwich</string>
+    <string name="search_by_name">Search by name...</string>
+    <string name="Costumer">Costumer</string>
+    <string name="caf_s">Coffes</string>
+    <string name="Sandwiches">Sandwiches</string>
 </resources>

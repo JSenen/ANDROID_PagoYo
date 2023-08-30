@@ -74,7 +74,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         Log.i("INFO--> ","Añadido a DB");
         //Notificacion emergente
         //Toast.makeText(this, "Nuevo registro añadido", Toast.LENGTH_LONG).show();
-        Snackbar.make(view, "Cliente añadido", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, (R.string.cliente_a_adido), Snackbar.LENGTH_LONG).show();
     }
 
     //Opciones de menu en la action bar

@@ -206,9 +206,9 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
 
             //Creamos dialogo de alerta con opciones
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("Desea boorar el cliente?")
-                    .setTitle("Eliminar cliente")
-                    .setPositiveButton("Si", (dialog, id) -> {
+            builder.setMessage(R.string.desea_boorar_el_cliente)
+                    .setTitle(R.string.eliminar_cliente)
+                    .setPositiveButton(R.string.si, (dialog, id) -> {
                         //Al pulsar en OK eliminamos cliente de la base de datos
                         final AppDataBase db = Room.databaseBuilder(context, AppDataBase.class, DATABASE_NAME)
                                 .allowMainThreadQueries().build();
@@ -244,8 +244,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             }else{
                 SandWichContainer sandWichContainer = new SandWichContainer(sandwiches);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("ENTREGAR ALMUERZO")
-                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                builder.setMessage((R.string.entregar_almuerzo))
+                        .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 sandWichContainer.value = 0;
@@ -266,7 +266,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             }
 
             updateSandWichDB(sandwiches, id, position);
-            Snackbar.make(parentview, "Almuerzo añadido", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentview,(R.string.almuerzo_a_adido), Snackbar.LENGTH_SHORT).show();
 
 
         }
@@ -289,8 +289,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             }else {
                 CoffesContainer coffesContainer = new CoffesContainer(coffes);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("ENTREGAR CAFÉ")
-                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                builder.setMessage((R.string.entregar_caf))
+                        .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         coffesContainer.value = 0;
@@ -312,7 +312,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainLi
             updateDB(coffes, id, position);
 
 
-            Snackbar.make(parentview, "Café añadido", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentview, (R.string.caf_a_adido), Snackbar.LENGTH_SHORT).show();
 
         }
 

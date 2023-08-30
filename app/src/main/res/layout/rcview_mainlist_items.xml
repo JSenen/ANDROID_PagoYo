@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:paddingEnd="10dp"
-                android:text="Cliente"
+                android:text="@string/Costumer"
                 android:textSize="14dp" />
 
             <TextView
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:paddingEnd="10dp"
-                android:text="Cafés"
+                android:text="@string/caf_s"
                 android:textSize="14dp" />
 
             <TextView
@@ -131,7 +131,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Almuerzos"
+                android:text="@string/Sandwiches"
                 android:textAllCaps="false"
                 android:textSize="14dp"
                 android:textStyle="bold" />
