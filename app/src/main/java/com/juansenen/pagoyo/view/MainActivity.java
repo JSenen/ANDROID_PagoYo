@@ -126,6 +126,11 @@ public class MainActivity extends AppCompatActivity implements MainListAdapter.A
             startActivity(intent);
 
             return true;
+        } else if (item.getItemId() == R.id.item_info) {
+            Intent intent = new Intent(this, InfoActivity.class);
+            finish();
+            startActivity(intent);
+
         }
 
         return false;

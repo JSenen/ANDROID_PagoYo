@@ -15,5 +15,18 @@
     <string name="search_by_name">Search by name...</string>
     <string name="Costumer">Costumer</string>
     <string name="caf_s">Coffes</string>
-    <string name="Sandwiches">Sandwiches</string>
+    <string name="Sandwiches" translatable="false">Sandwiches</string>
+    <string name="infotxt">Welcome to "PagoYo". App created by JSenen for the loyalty of customers of a bar. Through the app we can add customers, assigning them an amount of coffee or lunch drinks.
+    or lunch. If not by default will assign the amount of 10. Each time the customer consumes, we will click on the icon corrspondiente and when the number of
+    the indicated number of drinks, it will show us the prize to give him the next gift. The number of days to receive the prize is of 10 days by default
+    from the moment it is obtained, then it will be automatically eliminated.</string>
+    <string name="contributions">Atribuciones:
+        <a href="https://www.freepik.com/free-vector/bundle-with-set-face-business-people_6196665.htm#query=avatar&amp;position=4&amp;from_view=search&amp;track=sph">Image by studiogstock</a> on Freepik
+        <a href="https://www.flaticon.es/iconos-gratis/eliminar" title="eliminar iconos">Eliminar iconos creados por Freepik - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/trofeo" title="trofeo iconos">Trofeo iconos creados por Freepik - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/cafe" title="café iconos">Café iconos creados por Paul Kovaloff - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/plato" title="plato iconos">Plato iconos creados por Freepik - Flaticon</a>
+        <a href="http://www.freepik.com">Designed by studiogstock / Freepik</a>
+        <a href="https://www.flaticon.es/iconos-gratis/un-pan" title="un pan iconos">Un pan iconos creados por Freepik - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/personas" title="personas iconos">Personas iconos creados por Jesus Chavarria - Flaticon</a></string>
 </resources>
