@@ -16,4 +16,17 @@
     <string name="search_by_name">Buscar por nombre ...</string>
     <string name="Costumer">Cliente</string>
     <string name="caf_s">Cafes</string>
+    <string name="infotxt">Bienvenidos a "PagoYo". App creada por JSenen para la fidelización de clientes de un bar. Por medio de la app podemos añadir clientes, asignandoles una cantidad de consumiciones de cafes
+    o almuerzos. Si no por defecto asignará la cantidad de 10. Cada vez que el cliente consuma, pulsaremos sobre el icono corrspondiente y cuando el número de
+    consumiciones sea el indicado nos mostrará el premio para entregarle el siguiente de regalo. El número de días para recibir el premio es de 10 días por defecto
+    decsde que se obtiene, despues se eliminará automaticamente.</string>
+    <string name="contributions">Atribuciones:
+        <a href="https://www.freepik.com/free-vector/bundle-with-set-face-business-people_6196665.htm#query=avatar&amp;position=4&amp;from_view=search&amp;track=sph">Image by studiogstock</a> on Freepik
+        <a href="https://www.flaticon.es/iconos-gratis/eliminar" title="eliminar iconos">Eliminar iconos creados por Freepik - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/trofeo" title="trofeo iconos">Trofeo iconos creados por Freepik - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/cafe" title="café iconos">Café iconos creados por Paul Kovaloff - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/plato" title="plato iconos">Plato iconos creados por Freepik - Flaticon</a>
+        <a href="http://www.freepik.com">Designed by studiogstock / Freepik</a>
+        <a href="https://www.flaticon.es/iconos-gratis/un-pan" title="un pan iconos">Un pan iconos creados por Freepik - Flaticon</a>
+        <a href="https://www.flaticon.es/iconos-gratis/personas" title="personas iconos">Personas iconos creados por Jesus Chavarria - Flaticon</a></string>
 </resources>
