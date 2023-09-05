@@ -11,12 +11,16 @@ Sencilla aplicación para efectuar una fidelización de clientes de un Bar.
 El usuario de la app puede introducir los distintos clientes asignandoles un nombre y el número de consumiciones que deben realizar para tener opción a una consumición gratutita.
 En caso de no especificar un número se cogera 10 por defecto.
 
-![WebImagen](https://github.com/JSenen/ANDROID_PagoYo/blob/41e9948d44bd9cf85688f2a60d1300b5661bd6e9/img/Anotaci%C3%B3n%202023-09-05%20101435.png)
+![WebImagen](https://github.com/JSenen/ANDROID_PagoYo/blob/41e9948d44bd9cf85688f2a60d1300b5661bd6e9/img/Anotaci%C3%B3n%202023-09-05%20101434.png)
 
 En la pantalla principal se ve las distintas fichas correspondientes a los clientes y las consumiciones que lleva cada uno de ellos.
 
+![WebImagen](https://github.com/JSenen/ANDROID_PagoYo/blob/41e9948d44bd9cf85688f2a60d1300b5661bd6e9/img/Anotaci%C3%B3n%202023-09-05%20101435.png)
+
 Pulsando sobre la taza de cafe o el sandwich, se incrementa en 1 la consumición y al llegar al número indicado para la consumición gratuita, aparecera una copa con la fecha de obtención del premio.
 También aparecerá en la parte inferior la fecha tope para canjear el premio (10 días por defecto)
+
+![WebImagen](https://github.com/JSenen/ANDROID_PagoYo/blob/41e9948d44bd9cf85688f2a60d1300b5661bd6e9/img/Anotaci%C3%B3n%202023-09-05%20101436.png)
 
 Si el usuario le corresponde un premio, al pulsar sobre la taza o el sandwinch, la aplicación nos ofrecera un diálogo para entregarle el premio y volver a popner el contador a 0.
 
