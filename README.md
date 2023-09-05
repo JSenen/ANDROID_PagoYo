@@ -11,7 +11,7 @@ Sencilla aplicación para efectuar una fidelización de clientes de un Bar.
 El usuario de la app puede introducir los distintos clientes asignandoles un nombre y el número de consumiciones que deben realizar para tener opción a una consumición gratutita.
 En caso de no especificar un número se cogera 10 por defecto.
 
-![WebImagen](https://raw.githubusercontent.com/ANDROID_PagoYo/develop/img/Anotación2023-09-05101434.png)
+![WebImagen](https://github.com/JSenen/ANDROID_PagoYo/blob/41e9948d44bd9cf85688f2a60d1300b5661bd6e9/img/Anotaci%C3%B3n%202023-09-05%20101435.png)
 
 En la pantalla principal se ve las distintas fichas correspondientes a los clientes y las consumiciones que lleva cada uno de ellos.
 
